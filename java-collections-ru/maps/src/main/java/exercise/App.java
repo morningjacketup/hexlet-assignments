@@ -5,12 +5,15 @@ import java.util.Map;
 
 // BEGIN
     class App {
-        public static Map<String, Integer> getCount(String sentense) {
-            String[] words = sentense.split(" ");
-
-            System.out.println(Arrays.toString(words));
+        public static Map<String, Integer> getWordCount(String sentense) {
 
             Map<String, Integer> wordsCount = new HashMap<>();
+
+            if (sentense.isEmpty()) {
+                return wordsCount;
+            }
+
+            String[] words = sentense.split(" ");
 
             for (int i = 0; i < words.length; i++) {
                 int counter = 0;
