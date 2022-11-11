@@ -8,6 +8,9 @@ import java.util.List;
      public static List<String> buildAppartmentsList(List<Home> appartments, int n) {
         appartments.sort(Home::compareTo);
         List<String> result = new ArrayList<>();
+        if (n == 0) {
+            return result;
+        }
         for (int i = 0; i < n; i++) {
             result.add(appartments.get(i).toString());
         }
