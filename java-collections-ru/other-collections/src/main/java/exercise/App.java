@@ -7,7 +7,6 @@ import java.util.TreeSet;
 
 // BEGIN
 class App {
-    class App {
         public static Map<String, String> genDiff(Map<String, Object> data1, Map<String, Object> data2) {
 
             Map<String, String> result = new LinkedHashMap<>();
@@ -29,4 +28,3 @@ class App {
             return result;
         }
     }
-}
