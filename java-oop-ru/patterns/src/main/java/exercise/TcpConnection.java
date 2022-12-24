@@ -15,19 +15,13 @@ public class TcpConnection {
         connection = new Disconnected(this);
     }
 
-    public void getCurrentState() {
-        if (connection.getClass().equals(Connected.class)) {
-            System.out.println("connected");
-        }
-        if (connection.getClass().equals(Disconnected.class)) {
-            System.out.println("disconnected");
-        }
-
+    public String getCurrentState() {
+        return connection.getCurrentState();
     }
 
     public void connect() {
         if (connection.getClass().equals(Connected.class)) {
-            System.out.println("ERROR ! Connection is already connected");
+            System.out.println("Error! Connection is already connected");
         }
         changeStateTo(new Connected(this));
     }
@@ -40,6 +34,9 @@ public class TcpConnection {
     }
 
     public void write(String text) {
+        if (connection.getClass().equals(Disconnected.class)) {
+            System.out.println("Error! Connection is disconnected");
+        }
         this.data = text;
     }
 

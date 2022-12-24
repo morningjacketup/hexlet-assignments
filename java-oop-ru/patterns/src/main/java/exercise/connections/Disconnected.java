@@ -10,5 +10,10 @@ public class Disconnected implements Connection {
     public Disconnected(TcpConnection connection) {
         this.connection = connection;
     }
+
+    @Override
+    public String getCurrentState() {
+        return "disconnected";
+    }
 }
 // END
