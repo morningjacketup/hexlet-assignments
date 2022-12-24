@@ -3,10 +3,6 @@ import exercise.connections.Connected;
 import exercise.connections.Connection;
 import exercise.connections.Disconnected;
 
-import java.util.Dictionary;
-import java.util.List;
-import java.util.ArrayList;
-
 // BEGIN
 public class TcpConnection {
     private final String ip;
