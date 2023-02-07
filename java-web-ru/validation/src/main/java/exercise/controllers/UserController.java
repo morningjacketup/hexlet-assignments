@@ -3,6 +3,7 @@ package exercise.controllers;
 import io.javalin.http.Handler;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import io.javalin.core.validation.Validator;
 import io.javalin.core.validation.ValidationError;
@@ -58,7 +59,7 @@ public final class UserController {
                 .check(it -> !it.isEmpty(), "Фамилия не должна быть пустая");
 
         Validator<String> emailValidator = ctx.formParamAsClass("email", String.class)
-                .check(it -> !EmailValidator.isValid(it), "Некорретный email");
+                .check(it -> EmailValidator.getInstance().isValid(email), "Некорретный email");
 
         Validator<String> passwordValidator = ctx.formParamAsClass("password", String.class)
                 .check(StringUtils::isNumeric, "Пароль должен быть из чисел")
