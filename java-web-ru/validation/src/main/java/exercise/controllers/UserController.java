@@ -51,22 +51,21 @@ public final class UserController {
         String email = ctx.formParam("email");
         String password = ctx.formParam("password");
 
-        Validator<String> validator = ctx.formParamAsClass("firstName", String.class)
+        Validator<String> firstNameValidator = ctx.formParamAsClass("firstName", String.class)
                 .check(it -> !it.isEmpty(), "Имя не должно быть пустым");
 
         Validator<String> lastNameValidator = ctx.formParamAsClass("lastName", String.class)
-                .check(it -> !it.isEmpty(), "Фамилия не должна быть пустая");
+                .check(it -> !it.isEmpty(), "Фамилия не должна быть пустой");
 
         Validator<String> emailValidator = ctx.formParamAsClass("email", String.class)
-                .check(it -> EmailValidator.getInstance().isValid(email), "Некорретный email");
+                .check(it -> EmailValidator.getInstance().isValid(it), "Должно быть валидным email");
 
         Validator<String> passwordValidator = ctx.formParamAsClass("password", String.class)
-                .check(StringUtils::isNumeric, "Пароль должен быть из чисел")
-                .check(it -> it.length() > 4, "Пароль должен быть длинее 4 чисел");
-
+                .check(it -> it.length() >= 4, "Пароль должен содержать не менее 4 символов")
+                .check(it -> StringUtils.isNumeric(it), "Пароль должен содержать только цифры");
 
         Map<String, List<ValidationError<? extends Object>>> errors = JavalinValidation.collectErrors(
-                validator,
+                firstNameValidator,
                 lastNameValidator,
                 emailValidator,
                 passwordValidator
@@ -77,14 +76,15 @@ public final class UserController {
             ctx.attribute("errors", errors);
             User invalidUser = new User(firstName, lastName, email, password);
             ctx.attribute("user", invalidUser);
-            ctx.render("/users/new");
+            ctx.render("users/new.html");
+            return;
         }
 
         User user = new User(firstName, lastName, email, password);
         user.save();
 
+        ctx.sessionAttribute("flash", "Пользователь успешно создан");
         ctx.redirect("/users");
     };
-
 }
         // END
