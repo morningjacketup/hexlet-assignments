@@ -3,7 +3,6 @@ package exercise.controllers;
 import io.javalin.http.Handler;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import io.javalin.core.validation.Validator;
 import io.javalin.core.validation.ValidationError;
